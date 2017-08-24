@@ -138,7 +138,7 @@ INSTALLED_APPS = (
     'djangocms_teaser',
     'djangocms_video',
     'reversion',
-    'aldryn_segmentation',
+    'djangocms_segmentation',
     'segtest',
 )
 

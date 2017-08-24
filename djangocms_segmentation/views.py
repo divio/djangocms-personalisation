@@ -11,9 +11,9 @@ from .segment_pool import segment_pool
 
 @require_POST
 def set_segment_override(request):
-    '''
+    """
     This view (re)sets an override on a specific segment.
-    '''
+    """
 
     segment_class = request.POST.get('segment_class', None)
     segment_config = request.POST.get('segment_config', None)
@@ -24,9 +24,9 @@ def set_segment_override(request):
 
 
 def reset_all_segment_overrides(request):
-    '''
+    """
     This view resets all segment overrides in one go.
-    '''
+    """
 
     segment_pool.reset_all_segment_overrides(request.user)
     return HttpResponse(force_text(_('The all segment override were successfully reset.')))

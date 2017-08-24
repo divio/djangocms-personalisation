@@ -17,11 +17,11 @@ class SegmentAdmin(admin.ModelAdmin):
     #
 
     def get_model_perms(self, request):
-        '''
+        """
         Returns an empty perms dict which has the effect of disabling its
         display in the AdminSite, but still allows access to the views defined
         below.
-        '''
+        """
         return dict()
 
     def get_urls(self):

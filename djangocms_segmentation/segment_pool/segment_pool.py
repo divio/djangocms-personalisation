@@ -18,7 +18,7 @@ from cms.plugin_pool import plugin_pool
 from cms.toolbar.items import SubMenu, Break, AjaxItem
 
 from ..cms_plugins import SegmentPluginBase
-from ..models import SegmentBasePluginModel
+from ..models import SegmentByBasePluginModel
 
 
 #
@@ -36,7 +36,7 @@ class SegmentOverride:
 
 @python_2_unicode_compatible
 class SegmentPool(object):
-    '''
+    """
     This maintains a set of nested sorted dicts containing, among other
     attributes, a list of segment plugin instances in the form:
 
@@ -78,7 +78,7 @@ class SegmentPool(object):
     happen when an operator changes the plugin's configuration), this allows
     us to prune no-longer relevant parts of this structure as instances are
     de-registered.
-    '''
+    """
 
     #
     # Magic Strings for managing the structures below.
@@ -89,17 +89,15 @@ class SegmentPool(object):
     OVERRIDES = 'OVERRIDES'
     INSTANCES = 'INSTANCES'
 
-
     def __init__(self):
         self.segments = dict()
         self._sorted_segments = dict()
 
-
     def discover(self):
-        '''
+        """
         Find and register any SegmentPlugins already configured in the CMS and
         register them.
-        '''
+        """
 
         #
         # To reduce the number of queries we'll be making against CMSPlugin,
@@ -128,9 +126,8 @@ class SegmentPool(object):
             plugin_instance = plugin_instance.get_plugin_instance()[0]
             self.register_segment_plugin(plugin_instance, suppress_discovery=True)
 
-
     def register_segment_plugin(self, plugin_instance, suppress_discovery=False):
-        '''
+        """
         Registers the provided plugin_instance into the SegmentPool.
         Raises:
             PluginAlreadyRegistered: if the plugin is already registered and
@@ -144,12 +141,12 @@ class SegmentPool(object):
 
         the `suppress_discovery` flag, when set to true, prevents recursion
         and should be only used by the self.discovery() method.
-        '''
+        """
 
         if not suppress_discovery and not self.segments:
             self.discover()
 
-        if isinstance(plugin_instance, SegmentBasePluginModel):
+        if isinstance(plugin_instance, SegmentByBasePluginModel):
             plugin_class_instance = plugin_instance.get_plugin_class_instance()
 
             if plugin_class_instance.allow_overrides:
@@ -211,13 +208,12 @@ class SegmentPool(object):
         else:
             cls = plugin_instance.__class__.__name__
             raise ImproperlyConfigured('Segment Plugin models must '
-                'subclass SegmentBasePluginModel. {0!r} does not.'.format(cls))
-
+                'subclass SegmentByBasePluginModel. {0!r} does not.'.format(cls))
 
     def unregister_segment_plugin(self, plugin_instance):
-        '''
+        """
         Removes the given plugin from the SegmentPool.
-        '''
+        """
 
         #
         # NOTE: In many cases, the configuration of a given plugin may have
@@ -228,9 +224,9 @@ class SegmentPool(object):
         if not self.segments:
             self.discover()
 
-        if not isinstance(plugin_instance, SegmentBasePluginModel):
+        if not isinstance(plugin_instance, SegmentByBasePluginModel):
             raise ImproperlyConfigured('Segment Plugins must subclasses of '
-                'SegmentBasePluginModel. {0} is not.'.format(
+                'SegmentByBasePluginModel. {0} is not.'.format(
                     plugin_instance.get_plugin_class_instance().__class__.__name__
                 ))
         else:
@@ -261,19 +257,10 @@ class SegmentPool(object):
                                     del self.segments[plugin_class_name]
             return
 
-        try:
-            cls = plugin_instance.get_plugin_class_instance().__class__.__name__
-            raise PluginNotRegistered('The segment plugin {0} cannot be '
-                'unregistered because it is not currently registered in the '
-                'SegmentPool.'.format(cls))
-        except:
-            raise PluginNotRegistered()
-
-
     def set_override(self, user, segment_class, segment_config, override):
-        '''
+        """
         (Re-)Set an override on a segment (segment_class x segment_config).
-        '''
+        """
 
         if not self.segments:
             self.discover()
@@ -285,11 +272,10 @@ class SegmentPool(object):
             overrides[user.username] = override
         self._sorted_segments = dict()
 
-
     def reset_all_segment_overrides(self, user):
-        '''
+        """
         Resets (disables) the overrides for all segments.
-        '''
+        """
 
         if not self.segments:
             self.discover()
@@ -301,13 +287,12 @@ class SegmentPool(object):
                         configuration[self.OVERRIDES][username] = SegmentOverride.NoOverride
         self._sorted_segments = dict()
 
-
     def get_num_overrides_for_user(self, user):
-        '''
+        """
         Returns a count of the number of overrides for all segments for the
         given user. This is used for the toolbar menu where we show the number
         of active overrides.
-        '''
+        """
 
         if not self.segments:
             self.discover()
@@ -320,12 +305,11 @@ class SegmentPool(object):
                         num += 1
         return num
 
-
     def get_override_for_classname(self, user, plugin_class_name, segment_config):
-        '''
+        """
         Given the user, plugin_class_name and segment_config, return the
         current override, if any.
-        '''
+        """
 
         #
         # Note: segment_config can be either of:
@@ -369,14 +353,13 @@ class SegmentPool(object):
 
         return SegmentOverride.NoOverride
 
-
     def get_override_for_segment(self, user, plugin_class_instance, plugin_instance):
-        '''
+        """
         Given a specific user, plugin class and instance, return the current
         override. This is a wrapper around get_override_for_classname() and
         provides the appropriate duck-checking and is therefore more useful as
         an external entry-point into the segment_pool.
-        '''
+        """
 
         if not self.segments:
             self.discover()
@@ -394,7 +377,7 @@ class SegmentPool(object):
 
 
     def _get_sorted_copy(self):
-        '''
+        """
         Returns the SegmentPool as a list of tuples sorted appropriately for
         human consumption in *the current language*. This means that the
         _(NAME) value should determine the sort order of the outer dict and
@@ -429,7 +412,7 @@ class SegmentPool(object):
         produces excellent results. On earlier systems, this is not available,
         so, we use a cruder mapping of accented characters into their
         unaccented ASCII equivalents.
-        '''
+        """
 
         sort_key = None
         if sys.version_info >= (3, 0):
@@ -484,12 +467,11 @@ class SegmentPool(object):
 
         return clone
 
-
     def get_registered_segments(self):
-        '''
+        """
         This is the interfact for obtaining a copy of the pool. It is returned
         sorted for the current language.
-        '''
+        """
 
         if not self.segments:
             self.discover()
@@ -500,11 +482,10 @@ class SegmentPool(object):
 
         return self._sorted_segments[lang]
 
-
     def get_segments_toolbar_menu(self, user, toolbar, csrf_token):
-        '''
+        """
         Returns a CMSToolbar "Segments" menu from the pool.
-        '''
+        """
 
         #
         # NOTE: This is usually when the discovery process starts.
@@ -587,12 +568,11 @@ class SegmentPool(object):
         )
         segment_menu.add_item(reset_ajax_item)
 
-
     def __str__(self):
-        '''
+        """
         Returns the whole segment_pool structure. Useful for debugging. Not
         much else.
-        '''
+        """
 
         return self.segments
 
