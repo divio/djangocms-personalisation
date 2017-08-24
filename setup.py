@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 
 from setuptools import setup, find_packages
-from djangocms_segmentation import __version__
+from djangocms_personalisation import __version__
 
 
 setup(
-    name='djangocms-segmentation',
+    name='djangocms-personalisation',
     version=__version__,
-    description='Visitor Segmentation for django CMS',
+    description='Visitor Personalisation for django CMS',
     author='Divio AG',
     author_email='info@divio.ch',
-    url='https://github.com/divio/djangocms-segmentation',
+    url='https://github.com/divio/djangocms-personalisation',
     packages=find_packages(),
     package_data={},
     license='LICENSE.txt',
