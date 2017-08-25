@@ -84,11 +84,9 @@ class SegmentPool(object):
     OVERRIDES = 'OVERRIDES'
     INSTANCES = 'INSTANCES'
 
-
     def __init__(self):
         self.segments = dict()
         self._sorted_segments = dict()
-
 
     def discover(self):
         """
@@ -122,7 +120,6 @@ class SegmentPool(object):
             #
             plugin_instance = plugin_instance.get_plugin_instance()[0]
             self.register_segment_plugin(plugin_instance, suppress_discovery=True)
-
 
     def register_segment_plugin(self, plugin_instance, suppress_discovery=False):
         """
@@ -204,7 +201,6 @@ class SegmentPool(object):
             cls = plugin_instance.__class__.__name__
             raise ImproperlyConfigured('Segment Plugin models must '
                 'subclass SegmentBasePluginModel. {0!r} does not.'.format(cls))
-
 
     def unregister_segment_plugin(self, plugin_instance):
         """
