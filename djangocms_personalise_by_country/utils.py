@@ -18,7 +18,5 @@ def get_country_from_request(request, headers=None):
     for header in headers:
         country_code = request.META.get(header)
         if country_code:
-            print "COUNTRY CODE {}".format(country_code)
             return country_code
-    print "COUNTRY CODE NONE"
     return None

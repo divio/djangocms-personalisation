@@ -33,7 +33,7 @@ class PersonaliseByCountryPlugin(PersonaliseByPluginBase):
             PersonaliseByCountryPluginModel,
             attrs={'width': '250px'}
         )
-    except:
+    except ImportError:
         pass
 
     def is_context_appropriate(self, context, instance):
