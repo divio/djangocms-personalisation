@@ -268,7 +268,7 @@ class SegmentPool(object):
             overrides[user.username] = override
         self._sorted_segments = dict()
 
-    def reset_all_segment_overrides(self, user):
+    def reset_all_overrides(self, user):
         '''
         Resets (disables) the overrides for all segments.
         '''
@@ -489,9 +489,9 @@ class SegmentPool(object):
         num_overrides = self.get_num_overrides_for_user(user)
 
         if num_overrides:
-            segment_menu_name = _('Segments ({num:d})'.format(num=num_overrides))
+            segment_menu_name = _('Personalise ({num:d})'.format(num=num_overrides))
         else:
-            segment_menu_name = _('Segments')
+            segment_menu_name = _('Personalise')
 
         segment_menu = toolbar.get_or_create_menu(
             'segmentation-menu',

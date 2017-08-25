@@ -5,7 +5,7 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from .models import Personalisation
-from .views import set_personalisation_override, reset_all_personalisation_overrides
+from .views import set_override, reset_all_overrides
 
 
 class PersonalisationAdmin(admin.ModelAdmin):
@@ -28,12 +28,12 @@ class PersonalisationAdmin(admin.ModelAdmin):
 
         return [
             url(r'set_override/$',
-                self.admin_site.admin_view(set_personalisation_override),
+                self.admin_site.admin_view(set_override),
                 name='djangocms_personalisation_set_override'
                 ),
 
             url(r'reset_all_overrides/$',
-                self.admin_site.admin_view(reset_all_personalisation_overrides),
+                self.admin_site.admin_view(reset_all_overrides),
                 name='djangocms_personalisation_reset_all_overrides'
                 ),
         ] + super(PersonalisationAdmin, self).get_urls()

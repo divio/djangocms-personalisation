@@ -10,7 +10,7 @@ from .segment_pool import segment_pool
 
 
 @require_POST
-def set_personalisation_override(request):
+def set_override(request):
     """
     This view (re)sets an override on a specific segment.
     """
@@ -23,7 +23,7 @@ def set_personalisation_override(request):
     return HttpResponse(force_text(_('The segment override was successfully changed.')))
 
 
-def reset_all_personalisation_overrides(request):
+def reset_all_overrides(request):
     """
     This view resets all segment overrides in one go.
     """
