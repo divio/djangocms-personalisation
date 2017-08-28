@@ -3,8 +3,7 @@
 {% if request.toolbar.edit_mode_active %}
     {# TODO: JS alert with confirmation? #}
     <div class="alert alert-info">
-        When published this will redirect to <code>{{ instance.redirect_to }}</code>.<br/>
-        <code>djangocms_personalisation_is_visible={{ djangocms_personalisation_is_visible }}</code>
+        When published this will redirect to <code>{{ instance.redirect_to }}</code>.
     </div>
 {% else %}
     {# The plugin is rendered, even if it will not be displayed on the page. #}
