@@ -83,6 +83,16 @@ class PersonalisePlugin(PersonaliseByPluginBase):
 
     allow_overrides = False
 
+    fieldsets = (
+        (None, {
+            'fields': ('label',),
+        }),
+        (_('Advanced'), {
+            'fields': ('max_children',),
+            'classes': ('collapse',),
+        }),
+    )
+
     def render(self, context, instance, placeholder):
         context = super(PersonalisePlugin, self).render(
             context, instance, placeholder)
