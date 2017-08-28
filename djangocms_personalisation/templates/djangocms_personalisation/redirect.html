@@ -1,0 +1,12 @@
+{% load sekizai_tags %}
+
+{% if request.toolbar.edit_mode_active %}
+    {# TODO: JS alert with confirmation? #}
+    <div class="alert alert-info">
+        When published this will redirect to <code>{{ instance.redirect_to }}</code>.
+    </div>
+{% else %}
+    {% addtoblock 'css' %}
+        <meta http-equiv="refresh" content="{{ instance.delay }}; URL={{ instance.redirect_to }}">
+    {% endaddtoblock %}
+{% endif %}

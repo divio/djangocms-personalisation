@@ -5,7 +5,8 @@ from django.utils.translation import ugettext_lazy as _
 from cms.plugin_pool import plugin_pool
 from cms.plugin_base import CMSPluginBase
 
-from .models import PersonalisePluginModel, PersonaliseFallbackPluginModel
+from .models import PersonalisePluginModel, PersonaliseFallbackPluginModel, \
+    PersonalisationRedirectPluginModel
 
 
 class PersonaliseByPluginBase(CMSPluginBase):
@@ -194,10 +195,10 @@ class PersonalisePlugin(PersonaliseByPluginBase):
         return children
 
 
+# FIXME: rename to PersonaliseFallbackPlugin
 class SegmentFallbackPlugin(PersonaliseByPluginBase):
     """
-    This segment plugin represents a degenerate case where the segment
-    always matches.
+    This PersonaliseBy plugin is for the Fallback case and always matches.
     """
 
     model = PersonaliseFallbackPluginModel
@@ -210,5 +211,18 @@ class SegmentFallbackPlugin(PersonaliseByPluginBase):
         return True
 
 
+class PersonalisationRedirectPlugin(CMSPluginBase):
+    model = PersonalisationRedirectPluginModel
+    name = _('Redirect To')
+    render_template = 'djangocms_personalisation/redirect.html'
+
+    def render(self, context, instance, placeholder):
+        context = (
+            super(PersonalisationRedirectPlugin, self)
+            .render(context=context, instance=instance, placeholder=placeholder)
+        )
+        return context
+
 plugin_pool.register_plugin(PersonalisePlugin)
 plugin_pool.register_plugin(SegmentFallbackPlugin)
+plugin_pool.register_plugin(PersonalisationRedirectPlugin)

@@ -158,6 +158,41 @@ class PersonaliseFallbackPluginModel(PersonaliseByPluginBaseModel):
 
 
 @python_2_unicode_compatible
+class PersonalisationRedirectPluginModel(CMSPlugin):
+    label = models.CharField(
+        _('label'),
+        blank=True,
+        default='',
+        max_length=128,
+    )
+    # TODO: Also allow redirecting to a CMS Page and/or relative URLs?
+    redirect_to = models.URLField(
+        _('redirect to'),
+        max_length=2083,
+    )
+    delay = models.PositiveSmallIntegerField(
+        _('delay before redirect'),
+        default=0,
+    )
+
+    def __str__(self):
+        """
+        If there is a label, show that with the configuration in brackets,
+        otherwise, just return the configuration string.
+        """
+
+        if self.label:
+            conf_str = _('{label} [{config}]').format(
+                label=self.label,
+                config=force_text(self.redirect_to),
+            )
+        else:
+            conf_str = self.redirect_to
+
+        return force_text(conf_str)
+
+
+@python_2_unicode_compatible
 class Personalisation(models.Model):
     """
     This is a hollow, unmanaged model that simply allows us to attach custom
