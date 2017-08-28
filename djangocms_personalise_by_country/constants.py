@@ -3,6 +3,14 @@ from __future__ import unicode_literals
 
 from django.utils.translation import ugettext_lazy as _
 
+# Default Headers on the request to use to look for a country code.
+DEFAULT_COUNTRY_HEADERS = [
+    'COUNTRY_CODE',
+    'GEOIP_COUNTRY_CODE',  # MaxMid GeoIP
+    'CF-IPCOUNTRY',  # CloudFlare
+]
+
+
 #
 # NOTE: This list is derived from MaxMind's datasets
 # (http://dev.maxmind.com/geoip/legacy/codes/iso3166/), so contains non-

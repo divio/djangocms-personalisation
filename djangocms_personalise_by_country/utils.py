@@ -1,18 +1,13 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
-
-
-DEFAULT_COUNTRY_HEADERS = [
-    'COUNTRY_CODE',
-    'CF-IPCOUNTRY',  # CloudFlare
-]
+from .constants import DEFAULT_COUNTRY_HEADERS
 
 
 def get_country_from_request(request, headers=None):
     if headers is None:
         headers = getattr(
             settings,
-            'DJANGOCMS_SEGMENT_BY_COUNTRY_HEADERS',
+            'DJANGOCMS_PERSONALISE_BY_COUNTRY_HEADERS',
             DEFAULT_COUNTRY_HEADERS
         )
     for header in headers:
