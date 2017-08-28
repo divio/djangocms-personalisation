@@ -154,7 +154,7 @@ class PersonaliseByPluginBaseModel(CMSPlugin):
 class PersonaliseFallbackPluginModel(PersonaliseByPluginBaseModel):
     @property
     def configuration_string(self):
-        return _('Always active')
+        return ''
 
 
 @python_2_unicode_compatible
@@ -169,3 +169,4 @@ class Personalisation(models.Model):
 
     def __str__(self):
         return 'Personalisation is an empty, unmanaged model.'
+

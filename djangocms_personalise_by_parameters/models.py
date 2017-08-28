@@ -2,8 +2,6 @@
 
 from __future__ import unicode_literals
 
-from collections import OrderedDict
-
 from django.http import QueryDict
 from djangocms_attributes_field.fields import AttributesField
 from djangocms_personalisation.models import PersonaliseByPluginBaseModel
