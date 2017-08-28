@@ -12,5 +12,8 @@ class Form(forms.BaseForm):
             'djangocms_personalise_by_cookie',
             'djangocms_personalise_by_country',
             'djangocms_personalise_manually',
+
+            'djangocms_personalise_by_parameters',
+            'djangocms_attributes_field',
         ])
         return settings

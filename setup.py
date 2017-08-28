@@ -18,6 +18,7 @@ setup(
     install_requires=[
         'django-cms>=3.5',
         'Django>=1.8',
+        'djangocms-attributes-field',
     ],
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
