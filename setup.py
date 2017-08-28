@@ -16,7 +16,7 @@ setup(
     license='LICENSE.txt',
     platforms=['OS Independent'],
     install_requires=[
-        'django-cms>=3.5',
+        # 'django-cms>=3.5',  # FIXME: Enforce this once 3.5 is released
         'Django>=1.8',
         'djangocms-attributes-field',
     ],
