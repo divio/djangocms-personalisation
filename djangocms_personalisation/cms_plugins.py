@@ -215,8 +215,7 @@ class PersonalisePlugin(PersonaliseByPluginBase):
         return children
 
 
-# FIXME: rename to PersonaliseFallbackPlugin
-class SegmentFallbackPlugin(PersonaliseByPluginBase):
+class PersonaliseFallbackPlugin(PersonaliseByPluginBase):
     """
     This PersonaliseBy plugin is for the Fallback case and always matches.
     """
@@ -238,5 +237,5 @@ class PersonalisationRedirectPlugin(CMSPluginBase):
 
 
 plugin_pool.register_plugin(PersonalisePlugin)
-plugin_pool.register_plugin(SegmentFallbackPlugin)
+plugin_pool.register_plugin(PersonaliseFallbackPlugin)
 plugin_pool.register_plugin(PersonalisationRedirectPlugin)
