@@ -101,6 +101,26 @@ class PersonalisePlugin(PersonaliseByPluginBase):
             context, instance)
         return context
 
+    @classmethod
+    def get_child_plugin_candidates(cls, slot, page):
+        """
+        Returns a list of all plugin classes
+        that will be considered when fetching
+        all available child classes for this plugin.
+        """
+        # Adding this as a separate method,
+        # we allow other plugins to affect
+        # the list of child plugin candidates.
+        # Useful in cases like djangocms-text-ckeditor
+        # where only text only plugins are allowed.
+        from cms.plugin_pool import plugin_pool
+
+        return [
+            plugin for plugin
+            in plugin_pool.registered_plugins
+            if issubclass(plugin, PersonaliseByPluginBase)
+        ]
+
     def is_context_appropriate(self, context, instance):
         """
         Returns True if any of its children are context-appropriate,
@@ -216,12 +236,6 @@ class PersonalisationRedirectPlugin(CMSPluginBase):
     name = _('Redirect To')
     render_template = 'djangocms_personalisation/redirect.html'
 
-    def render(self, context, instance, placeholder):
-        context = (
-            super(PersonalisationRedirectPlugin, self)
-            .render(context=context, instance=instance, placeholder=placeholder)
-        )
-        return context
 
 plugin_pool.register_plugin(PersonalisePlugin)
 plugin_pool.register_plugin(SegmentFallbackPlugin)
