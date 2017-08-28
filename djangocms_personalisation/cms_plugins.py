@@ -233,7 +233,7 @@ class PersonaliseFallbackPlugin(PersonaliseByPluginBase):
 class PersonalisationRedirectPlugin(CMSPluginBase):
     model = PersonalisationRedirectPluginModel
     name = _('Redirect To')
-    render_template = 'djangocms_personalisation/redirect.html'
+    render_template = 'djangocms_personalisation/redirect_to.html'
 
 
 plugin_pool.register_plugin(PersonalisePlugin)

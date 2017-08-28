@@ -14,6 +14,7 @@ register = template.Library()
 @register.simple_tag(takes_context=True)
 def render_segment_plugin(context, plugin, render_plugin):
     request = context['request']
+    context['djangocms_personalisation_is_visible'] = render_plugin
     toolbar = get_toolbar_from_request(request)
     if toolbar.uses_legacy_structure_mode:
         # We need to handle it the old way. Render ALL plugins on the page so
