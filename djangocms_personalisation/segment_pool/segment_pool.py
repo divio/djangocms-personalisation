@@ -479,7 +479,6 @@ class SegmentPool(object):
         #
         if not self.segments:
             self.discover()
-
         pool = self.get_registered_segments()
 
         num_overrides = self.get_num_overrides_for_user(user)
@@ -526,7 +525,7 @@ class SegmentPool(object):
                         config_menu.active = True
                         segment_class_menu.active = True
 
-                    if (override != user_override):
+                    if override != user_override:
                         override_value = override
                     else:
                         override_value = SegmentOverride.NoOverride
