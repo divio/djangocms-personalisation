@@ -195,13 +195,11 @@ class PersonalisationRedirectPluginModel(CMSPlugin):
 @python_2_unicode_compatible
 class Personalisation(models.Model):
     """
-    This is a hollow, unmanaged model that simply allows us to attach custom
+    This is an unused model that simply allows us to attach custom
     admin views into the AdminSite.
+    We can't use an unmanaged model because that would cause problems when
+    running dumpdata, as it expects the table to be there.
     """
-
-    class Meta:
-        managed = False
 
     def __str__(self):
         return 'Personalisation is an empty, unmanaged model.'
-

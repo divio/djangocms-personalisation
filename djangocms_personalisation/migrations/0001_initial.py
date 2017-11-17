@@ -12,15 +12,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Personalisation',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-            ],
-            options={
-                'managed': False,
-            },
-        ),
-        migrations.CreateModel(
             name='PersonaliseFallbackPluginModel',
             fields=[
                 ('cmsplugin_ptr', models.OneToOneField(parent_link=True, related_name='djangocms_personalisation_personalisefallbackpluginmodel', auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
