@@ -1,5 +1,5 @@
 include LICENSE.txt
 include README.md
-recursive-include aldryn_segmentation/locale *
-recursive-include aldryn_segmentation/templates *
+recursive-include djangocms_personalisation/locale *
+recursive-include djangocms_personalisation/templates *
 recursive-exclude * *.py[co]

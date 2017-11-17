@@ -1,0 +1,17 @@
+{% load sekizai_tags %}
+
+{% if request.toolbar.edit_mode_active %}
+    {# TODO: JS alert with confirmation? #}
+    <div class="alert alert-info">
+        When published this will redirect to <code>{{ instance.redirect_to }}</code>.
+    </div>
+{% else %}
+    {# The plugin is rendered, even if it will not be displayed on the page. #}
+    {# Sekizai will leak through in that case. That is why we need this additional check if we _really_ are visisble. #}
+    {% if djangocms_personalisation_is_visible %}
+        {% addtoblock 'css' %}
+            <meta http-equiv="refresh" content="{{ instance.delay }}; URL={{ instance.redirect_to }}">
+        {% endaddtoblock %}
+    {% endif %}
+{% endif %}
+
